@@ -10,8 +10,9 @@ class ProductServices
 
     public function getAll(): LengthAwarePaginator
     {
-        $query = Product::latest();
-        return $query->paginate(Product::PAGINATE);
+        // $query = Product::latest();
+        // return $query->paginate(Product::PAGINATE);
+        return Product::latest()->paginate(PRODUCT::PAGINATE);
     }
 
     public function create(array $data): Product
@@ -29,7 +30,7 @@ class ProductServices
         return $product->update($data);
     }
 
-    public function delete(Product $product): ?bool
+    public function delete(Product $product): bool
     {
         return $product->delete();
     }
