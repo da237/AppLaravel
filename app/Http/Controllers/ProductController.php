@@ -37,7 +37,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $this->services->create($request->validated());
-        return redirect()->route('products.index')->with('success','Product created successfully');
+        return redirect()->route('products.index')->with('Mensaje','Product created successfully');
     }
 
     /**
@@ -63,7 +63,7 @@ class ProductController extends Controller
     public function update(ProductRequest $request, Product $product)
     {
         $this->services->update($product,$request->validated());
-        return redirect()->route('products.index')->with('success','Product updated successfully');
+        return redirect()->route('products.index')->with('Mensaje','Product updated successfully');
     }
 
     /**
@@ -72,6 +72,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $this->services->delete($product);
-        return redirect()->route('products.index')->with('success','Product deleted successfully');
+        return redirect()->route('products.index')->with('Mensaje','Product deleted successfully');
     }
 }
