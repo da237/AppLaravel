@@ -6,6 +6,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Service\ProductServices;
 use App\Http\Requests\ProductRequest;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -28,7 +29,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('Product.form');
+        $categories = Category::all();
+        return view('Product.form',compact('categories'));
     }
 
     /**
@@ -45,7 +47,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('products.show',compact('product'));
+        return view('Product.show',compact('product'));
     }
 
     /**
@@ -54,7 +56,8 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         // $product = $this->services->find($product->id);
-        return view('Product.form',compact('product'));
+        $categories = Category::all();
+        return view('Product.form',compact('product','categories'));
     }
 
     /**

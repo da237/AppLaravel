@@ -10,15 +10,14 @@
         {{ isset($product) ? 'Edit Product' : 'Create Product' }}
     </h1>
 
-    <form 
-        action="{{ isset($product) ? route('products.update', $product->id) : route('products.store') }}" 
+    <form
+        action="{{ isset($product) ? route('products.update', $product->id) : route('products.store') }}"
         method="POST"
-        class="space-y-5"
-    >
+        class="space-y-5">
         @csrf
 
         @isset($product)
-            @method('PUT')
+        @method('PUT')
         @endisset
 
         <!-- Name -->
@@ -26,13 +25,12 @@
             <label class="block text-sm font-medium mb-1">
                 Name
             </label>
-            <input 
-                type="text" 
+            <input
+                type="text"
                 name="name"
                 value="{{ old('name', $product->name ?? '') }}"
                 class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Product name"
-            >
+                placeholder="Product name">
         </div>
 
         <!-- Description -->
@@ -40,12 +38,11 @@
             <label class="block text-sm font-medium mb-1">
                 Description
             </label>
-            <textarea 
+            <textarea
                 name="description"
                 rows="3"
                 class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Product description"
-            >{{ old('description', $product->description ?? '') }}</textarea>
+                placeholder="Product description">{{ old('description', $product->description ?? '') }}</textarea>
         </div>
 
         <!-- Price -->
@@ -53,14 +50,13 @@
             <label class="block text-sm font-medium mb-1">
                 Price
             </label>
-            <input 
-                type="number" 
+            <input
+                type="number"
                 step="0.01"
                 name="price"
                 value="{{ old('price', $product->price ?? '') }}"
                 class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="0.00"
-            >
+                placeholder="0.00">
         </div>
 
         <!-- Quantity -->
@@ -68,30 +64,57 @@
             <label class="block text-sm font-medium mb-1">
                 Quantity
             </label>
-            <input 
-                type="number" 
+            <input
+                type="number"
                 name="quantity"
                 value="{{ old('quantity', $product->quantity ?? '') }}"
                 class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="0"
-            >
+                placeholder="0">
         </div>
 
-        <!-- Buttons -->
-        <div class="flex justify-between items-center pt-4">
-            <a 
-                href="{{ route('products.index') }}"
-                class="text-gray-600 hover:underline"
-            >
-                ← Back
-            </a>
 
-            <button 
-                type="submit"
-                class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded"
-            >
-                {{ isset($product) ? 'Update Product' : 'Save Product' }}
-            </button>
+        <div>
+            <!-- Category -->
+            <div>
+                <label class="block text-sm font-medium mb-1">
+                    Category
+                </label>
+
+                <select
+                    name="category_id"
+                    class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">-- Select Category --</option>
+
+                    @foreach($categories as $category)
+                    <option
+                        value="{{ $category->id }}"
+                        {{ old('category_id', $product->category_id ?? '') == $category->id ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
+                    @endforeach
+                </select>
+
+                @error('category_id')
+                <p class="text-red-500 text-sm mt-1">
+                    {{ $message }}
+                </p>
+                @enderror
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex justify-between items-center pt-4">
+                <a
+                    href="{{ route('products.index') }}"
+                    class="text-gray-600 hover:underline">
+                    ← Back
+                </a>
+
+                <button
+                    type="submit"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded">
+                    {{ isset($product) ? 'Update Product' : 'Save Product' }}
+                </button>
+            </div>
         </div>
 
     </form>

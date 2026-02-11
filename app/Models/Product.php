@@ -6,7 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = ['name','description','price','quantity'];
+    protected $fillable = ['name', 'description', 'price', 'quantity','category_id'];
+
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
 
     public const PAGINATE = 10;
